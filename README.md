@@ -14,7 +14,7 @@ button{padding:10px 20px;background:#007bff;color:white;border:none;cursor:point
 button:hover:not(#noBtn){background:#0056b3;transform:scale(1.05);}
 #q5{text-align:center;font-size:24px;margin-top:50px;}
 #q5-container{position:relative;height:250px;border:2px dashed #ddd;border-radius:10px;margin:20px 0;overflow:hidden;background:linear-gradient(45deg,#ffebee,#fff);}
-#noBtn{position:absolute;transition:all 0.3s cubic-bezier(0.68,-0.55,0.265,1.55);background:#ff4757!important;font-weight:bold;z-index:10;box-shadow:0 4px 8px rgba(0,0,0,0.2);pointer-events:auto;}
+#noBtn{position:absolute;transition:all 0.2s cubic-bezier(0.68,-0.55,0.265,1.55);background:#ff4757!important;font-weight:bold;z-index:10;box-shadow:0 4px 8px rgba(0,0,0,0.2);pointer-events:none;}
 #yesBtn{position:relative;z-index:5;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
 .particles{position:absolute;width:5px;height:5px;background:#ff69b4;border-radius:50%;pointer-events:none;animation:explode 1s ease-out forwards;}
@@ -62,7 +62,7 @@ button:hover:not(#noBtn){background:#0056b3;transform:scale(1.05);}
 <div id="q5-container" class="hidden">
 <div id="q5">Do you love me? ❤️</div>
 <button id="yesBtn">Yes 😍</button>
-<button id="noBtn">No</button>
+<button id="noBtn">No ❌</button>
 </div>
 <div id="results" class="hidden"></div>
 </form>
@@ -78,49 +78,47 @@ const noBtn=document.getElementById('noBtn'),yesBtn=document.getElementById('yes
 noBtn.style.left = '20px';
 noBtn.style.top = '80px';
 
-// Enhanced mouse avoidance for No button
+// IMPOSSIBLE TO CLICK - Visual only movement
 q5Container.addEventListener('mousemove', (e) => {
     const rect = q5Container.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    // Calculate avoidance position (opposite direction from cursor)
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
     
-    let avoidX = x + (x > centerX ? -100 - Math.random() * 50 : 100 + Math.random() * 50);
-    let avoidY = y + (y > centerY ? -80 - Math.random() * 40 : 80 + Math.random() * 40);
+    // Aggressive avoidance
+    let avoidX = x + (x > centerX ? -120 - Math.random() * 60 : 120 + Math.random() * 60);
+    let avoidY = y + (y > centerY ? -100 - Math.random() * 50 : 100 + Math.random() * 50);
     
-    // Keep within bounds
-    avoidX = Math.max(btnWidth/2, Math.min(rect.width - btnWidth/2, avoidX));
-    avoidY = Math.max(btnHeight/2, Math.min(rect.height - btnHeight/2, avoidY));
+    // Keep in bounds
+    avoidX = Math.max(btnWidth, Math.min(rect.width - btnWidth, avoidX));
+    avoidY = Math.max(btnHeight, Math.min(rect.height - btnHeight, avoidY));
     
-    // Add rotation and scale for extra effect
-    const angle = (Math.random() - 0.5) * 180;
+    const angle = (Math.random() - 0.5) * 360;
     
     noBtn.style.left = avoidX + 'px';
     noBtn.style.top = avoidY + 'px';
-    noBtn.style.transform = `rotate(${angle}deg) scale(1.1)`;
+    noBtn.style.transform = `rotate(${angle}deg) scale(${1.1 + Math.random() * 0.2})`;
 });
 
-// Reset position when mouse leaves
 q5Container.addEventListener('mouseleave', () => {
     noBtn.style.transform = 'rotate(0deg) scale(1)';
 });
 
 function createParticles(){
-    for(let i=0;i<20;i++){
+    for(let i=0;i<30;i++){
         const particle=document.createElement('div');
         particle.className='particles';
-        const angle=(Math.PI*2*i)/20,velocity=100+Math.random()*100;
+        const angle=(Math.PI*2*i)/30,velocity=120+Math.random()*80;
         particle.style.left='50%';
         particle.style.top='50%';
         particle.style.setProperty('--dx',(Math.cos(angle)*velocity)+'px');
         particle.style.setProperty('--dy',(Math.sin(angle)*velocity)+'px');
         q5Container.appendChild(particle);
-        setTimeout(()=>particle.remove(),1000);
+        setTimeout(()=>particle.remove(),1200);
     }
 }
 
@@ -132,7 +130,7 @@ yesBtn.addEventListener('click',()=>{
         results.innerHTML='<h2>Thank you! Survey complete. 💕</h2><pre>'+JSON.stringify(responses,null,2)+'</pre>';
         results.classList.remove('hidden');
         console.log('Responses:',responses);
-    },1000);
+    },1200);
 });
 </script>
 </body>
