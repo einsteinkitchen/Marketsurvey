@@ -17,9 +17,7 @@ padding:20px;
 background:#f4f4f4;
 }
 
-h1{
-text-align:center;
-}
+h1{text-align:center;}
 
 .question{
 margin-bottom:20px;
@@ -29,10 +27,7 @@ border-radius:8px;
 box-shadow:0 2px 8px rgba(0,0,0,0.1);
 }
 
-label{
-display:block;
-margin:10px 0;
-}
+label{display:block;margin:10px 0;}
 
 button{
 padding:10px 20px;
@@ -44,15 +39,11 @@ border-radius:6px;
 margin-top:10px;
 }
 
-button:hover{
-background:#0056b3;
-}
+button:hover{background:#0056b3;}
 
-.hidden{
-display:none;
-}
+.hidden{display:none;}
 
-/* DATE QUESTION */
+/* Surprise Question */
 
 #q5-container{
 position:relative;
@@ -127,41 +118,44 @@ text-align:center;
 
 <div id="q1" class="question">
 <h3>1. How often do you shop online?</h3>
-<label><input type="radio" name="q1" value="Daily"> Daily</label>
-<label><input type="radio" name="q1" value="Weekly"> Weekly</label>
-<label><input type="radio" name="q1" value="Monthly"> Monthly</label>
-<label><input type="radio" name="q1" value="Rarely"> Rarely</label>
+<label><input type="radio" name="q1">Daily</label>
+<label><input type="radio" name="q1">Weekly</label>
+<label><input type="radio" name="q1">Monthly</label>
+<label><input type="radio" name="q1">Rarely</label>
 <button type="button" onclick="nextQ(1)">Next</button>
 </div>
 
 <div id="q2" class="question hidden">
 <h3>2. What influences your purchases most?</h3>
-<label><input type="radio" name="q2" value="Price"> Price</label>
-<label><input type="radio" name="q2" value="Quality"> Quality</label>
-<label><input type="radio" name="q2" value="Brand"> Brand</label>
-<label><input type="radio" name="q2" value="Reviews"> Reviews</label>
+<label><input type="radio" name="q2">Price</label>
+<label><input type="radio" name="q2">Quality</label>
+<label><input type="radio" name="q2">Brand</label>
+<label><input type="radio" name="q2">Reviews</label>
 <button type="button" onclick="nextQ(2)">Next</button>
 </div>
 
 <div id="q3" class="question hidden">
 <h3>3. Preferred shopping category?</h3>
-<label><input type="radio" name="q3" value="Electronics"> Electronics</label>
-<label><input type="radio" name="q3" value="Clothing"> Clothing</label>
-<label><input type="radio" name="q3" value="Groceries"> Groceries</label>
-<label><input type="radio" name="q3" value="Other"> Other</label>
+<label><input type="radio" name="q3">Electronics</label>
+<label><input type="radio" name="q3">Clothing</label>
+<label><input type="radio" name="q3">Groceries</label>
+<label><input type="radio" name="q3">Other</label>
 <button type="button" onclick="nextQ(3)">Next</button>
 </div>
 
 <div id="q4" class="question hidden">
 <h3>4. Satisfaction with current options (1-5)?</h3>
-<label><input type="radio" name="q4" value="1">1 (Very low)</label>
-<label><input type="radio" name="q4" value="2">2</label>
-<label><input type="radio" name="q4" value="3">3</label>
-<label><input type="radio" name="q4" value="4">4</label>
-<label><input type="radio" name="q4" value="5">5 (Very high)</label>
+<label><input type="radio" name="q4">1</label>
+<label><input type="radio" name="q4">2</label>
+<label><input type="radio" name="q4">3</label>
+<label><input type="radio" name="q4">4</label>
+<label><input type="radio" name="q4">5</label>
 <button type="button" onclick="nextQ(4)">Next</button>
 </div>
 
+</form>
+
+<!-- Hidden surprise question -->
 <div id="q5-container" class="hidden">
 
 <div id="q5">Can we go on a date? ❤️</div>
@@ -176,10 +170,8 @@ text-align:center;
 
 <div id="results" class="hidden"></div>
 
-</form>
-
-<audio id="loveSound" preload="auto">
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b6d6a.mp3?filename=romantic-ambient-piano-110624.mp3" type="audio/mpeg">
+<audio id="loveSound">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b6d6a.mp3?filename=romantic-ambient-piano-110624.mp3">
 </audio>
 
 <script>
@@ -210,7 +202,7 @@ q5Container.classList.remove("hidden")
 
 }
 
-/* ESCAPING BUTTON */
+/* Escape button */
 
 function moveNoButton(){
 
@@ -227,7 +219,7 @@ noBtn.style.top=y+"px"
 q5Container.addEventListener("mousemove",moveNoButton)
 q5Container.addEventListener("touchstart",moveNoButton)
 
-/* HEART EXPLOSION */
+/* Hearts */
 
 function createHearts(){
 
@@ -239,8 +231,7 @@ heart.style.position="absolute"
 heart.style.left="50%"
 heart.style.top="50%"
 heart.style.fontSize=(Math.random()*20+20)+"px"
-heart.style.pointerEvents="none"
-heart.style.transition="transform 1s ease-out, opacity 1s"
+heart.style.transition="transform 1s ease-out,opacity 1s"
 
 q5Container.appendChild(heart)
 
@@ -258,7 +249,7 @@ setTimeout(()=>heart.remove(),1000)
 
 }
 
-/* YES BUTTON */
+/* YES */
 
 yesBtn.addEventListener("click",(e)=>{
 
@@ -275,13 +266,10 @@ q5Container.classList.add("hidden")
 results.classList.remove("hidden")
 
 results.innerHTML=`
-
 <h2>Survey Complete 🎉</h2>
-
 <p style="font-size:20px">
 Cool – let's discuss about the date and time ❤️
 </p>
-
 `
 
 },900)
