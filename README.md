@@ -1,5 +1,5 @@
 # Market survey -The Einstein Kitchen
-Economic survey
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,9 +43,10 @@ button:hover{background:#0056b3;}
 
 .hidden{display:none;}
 
-/* Surprise Question */
+/* SURPRISE QUESTION */
 
 #q5-container{
+display:none;   /* IMPORTANT FIX */
 position:relative;
 height:320px;
 border:2px dashed #ddd;
@@ -53,7 +54,6 @@ border-radius:15px;
 margin:20px 0;
 overflow:hidden;
 background:linear-gradient(135deg,#ffdde1,#ffffff);
-display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
@@ -99,6 +99,7 @@ pointer-events:none;
 }
 
 #results{
+display:none;
 margin-top:20px;
 padding:20px;
 background:white;
@@ -155,8 +156,8 @@ text-align:center;
 
 </form>
 
-<!-- Hidden surprise question -->
-<div id="q5-container" class="hidden">
+<!-- Surprise Question -->
+<div id="q5-container">
 
 <div id="q5">Can we go on a date? ❤️</div>
 
@@ -168,7 +169,7 @@ text-align:center;
 
 </div>
 
-<div id="results" class="hidden"></div>
+<div id="results"></div>
 
 <audio id="loveSound">
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b6d6a.mp3?filename=romantic-ambient-piano-110624.mp3">
@@ -191,13 +192,17 @@ alert("Please select an answer!")
 return
 }
 
-document.getElementById(`q${q}`).classList.add("hidden")
+document.getElementById(`q${q}`).style.display="none"
 
 if(q<4){
 document.getElementById(`q${q+1}`).classList.remove("hidden")
 }
 else{
-q5Container.classList.remove("hidden")
+
+/* SHOW SURPRISE QUESTION */
+
+q5Container.style.display="flex"
+
 }
 
 }
@@ -219,7 +224,7 @@ noBtn.style.top=y+"px"
 q5Container.addEventListener("mousemove",moveNoButton)
 q5Container.addEventListener("touchstart",moveNoButton)
 
-/* Hearts */
+/* Heart Explosion */
 
 function createHearts(){
 
@@ -249,7 +254,7 @@ setTimeout(()=>heart.remove(),1000)
 
 }
 
-/* YES */
+/* YES BUTTON */
 
 yesBtn.addEventListener("click",(e)=>{
 
@@ -261,9 +266,9 @@ createHearts()
 
 setTimeout(()=>{
 
-q5Container.classList.add("hidden")
+q5Container.style.display="none"
 
-results.classList.remove("hidden")
+results.style.display="block"
 
 results.innerHTML=`
 <h2>Survey Complete 🎉</h2>
