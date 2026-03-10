@@ -117,7 +117,7 @@ text-align:center;
 <form id="surveyForm">
 
 <div id="q1" class="question">
-<h3>1. How often do you shop online?</h3>
+<h3>1. How often do you buy from Zomato?</h3>
 <label><input type="radio" name="q1">Daily</label>
 <label><input type="radio" name="q1">Weekly</label>
 <label><input type="radio" name="q1">Monthly</label>
@@ -135,21 +135,18 @@ text-align:center;
 </div>
 
 <div id="q3" class="question hidden">
-<h3>3. Preferred shopping category?</h3>
-<label><input type="radio" name="q3">Electronics</label>
-<label><input type="radio" name="q3">Clothing</label>
-<label><input type="radio" name="q3">Groceries</label>
+<h3>3. Preferred cuisine?</h3>
+<label><input type="radio" name="q3">South Indian</label>
+<label><input type="radio" name="q3">North Indian</label>
+<label><input type="radio" name="q3">Chineses</label>
 <label><input type="radio" name="q3">Other</label>
 <button type="button" onclick="nextQ(3)">Next</button>
 </div>
 
 <div id="q4" class="question hidden">
-<h3>4. Satisfaction with current options (1-5)?</h3>
-<label><input type="radio" name="q4">1</label>
-<label><input type="radio" name="q4">2</label>
-<label><input type="radio" name="q4">3</label>
-<label><input type="radio" name="q4">4</label>
-<label><input type="radio" name="q4">5</label>
+<h3>4. Are you aware of Einstein's Kitchen before?</h3>
+<label><input type="radio" name="q4">Yes</label>
+<label><input type="radio" name="q4">No</label>
 <button type="button" onclick="nextQ(4)">Next</button>
 </div>
 
@@ -158,7 +155,7 @@ text-align:center;
 <!-- Surprise Question -->
 <div id="q5-container">
 
-<div id="q5">Can we go on a date? ❤️</div>
+<div id="q5">Hey Vinitha, Can we go on a date? ❤️</div>
 
 <div class="buttons-container">
 <button id="yesBtn">Yes 😍</button>
