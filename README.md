@@ -1,5 +1,4 @@
 # Market survey -The Einstein Kitchen
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
