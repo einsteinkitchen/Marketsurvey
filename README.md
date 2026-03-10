@@ -1,5 +1,5 @@
-# Marketsurvey
-Economic market survey
+# Market survey -The Einstein Kitchen
+Economic survey
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +13,10 @@ label{display:block;margin:10px 0;}
 button{padding:10px 20px;background:#007bff;color:white;border:none;cursor:pointer;margin:5px;border-radius:5px;}
 button:hover:not(#noBtn){background:#0056b3;transform:scale(1.05);}
 #q5{text-align:center;font-size:24px;margin-top:50px;}
-#q5-container{position:relative;height:250px;border:2px dashed #ddd;border-radius:10px;margin:20px 0;overflow:hidden;background:linear-gradient(45deg,#ffebee,#fff);}
-#noBtn{position:absolute;transition:all 0.2s cubic-bezier(0.68,-0.55,0.265,1.55);background:#ff4757!important;font-weight:bold;z-index:10;box-shadow:0 4px 8px rgba(0,0,0,0.2);pointer-events:none;}
-#yesBtn{position:relative;z-index:5;animation:pulse 2s infinite;}
+#q5-container{position:relative;height:280px;border:2px dashed #ddd;border-radius:10px;margin:20px 0;overflow:hidden;background:linear-gradient(45deg,#ffebee,#fff);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+#noBtn{position:absolute;top:20px;left:20px;width:120px;height:40px;transition:all 0.2s cubic-bezier(0.68,-0.55,0.265,1.55);background:#ff4757!important;color:white;font-weight:bold;border-radius:20px;box-shadow:0 4px 8px rgba(0,0,0,0.2);pointer-events:none;font-size:14px;line-height:1.2;}
+#yesBtn{position:relative;z-index:5;animation:pulse 2s infinite;width:120px;}
+.buttons-container{position:relative;margin-top:20px;}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
 .particles{position:absolute;width:5px;height:5px;background:#ff69b4;border-radius:50%;pointer-events:none;animation:explode 1s ease-out forwards;}
 @keyframes explode{0%{transform:scale(1) translate(0,0);opacity:1;}100%{transform:scale(0) translate(var(--dx),var(--dy));opacity:0;}}
@@ -61,8 +62,10 @@ button:hover:not(#noBtn){background:#0056b3;transform:scale(1.05);}
 </div>
 <div id="q5-container" class="hidden">
 <div id="q5">Do you love me? ❤️</div>
+<div class="buttons-container">
 <button id="yesBtn">Yes 😍</button>
-<button id="noBtn">No ❌</button>
+</div>
+<button id="noBtn">Not sure yet 🤔</button>
 </div>
 <div id="results" class="hidden"></div>
 </form>
@@ -74,11 +77,7 @@ else{document.getElementById('q5-container').classList.remove('hidden');}}
 
 const noBtn=document.getElementById('noBtn'),yesBtn=document.getElementById('yesBtn'),q5Container=document.getElementById('q5-container'),results=document.getElementById('results');
 
-// Position No button initially
-noBtn.style.left = '20px';
-noBtn.style.top = '80px';
-
-// IMPOSSIBLE TO CLICK - Visual only movement
+// Ultra-smooth unclickable taunting movement
 q5Container.addEventListener('mousemove', (e) => {
     const rect = q5Container.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -89,49 +88,9 @@ q5Container.addEventListener('mousemove', (e) => {
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
     
-    // Aggressive avoidance
-    let avoidX = x + (x > centerX ? -120 - Math.random() * 60 : 120 + Math.random() * 60);
-    let avoidY = y + (y > centerY ? -100 - Math.random() * 50 : 100 + Math.random() * 50);
+    // Predict mouse movement and flee
+    let avoidX = x + (x > centerX ? -100 - Math.random() * 40 : 100 + Math.random() * 40);
+    let avoidY = y + (y > centerY ? -80 - Math.random() * 30 : 80 + Math.random() * 30);
     
-    // Keep in bounds
-    avoidX = Math.max(btnWidth, Math.min(rect.width - btnWidth, avoidX));
-    avoidY = Math.max(btnHeight, Math.min(rect.height - btnHeight, avoidY));
-    
-    const angle = (Math.random() - 0.5) * 360;
-    
-    noBtn.style.left = avoidX + 'px';
-    noBtn.style.top = avoidY + 'px';
-    noBtn.style.transform = `rotate(${angle}deg) scale(${1.1 + Math.random() * 0.2})`;
-});
-
-q5Container.addEventListener('mouseleave', () => {
-    noBtn.style.transform = 'rotate(0deg) scale(1)';
-});
-
-function createParticles(){
-    for(let i=0;i<30;i++){
-        const particle=document.createElement('div');
-        particle.className='particles';
-        const angle=(Math.PI*2*i)/30,velocity=120+Math.random()*80;
-        particle.style.left='50%';
-        particle.style.top='50%';
-        particle.style.setProperty('--dx',(Math.cos(angle)*velocity)+'px');
-        particle.style.setProperty('--dy',(Math.sin(angle)*velocity)+'px');
-        q5Container.appendChild(particle);
-        setTimeout(()=>particle.remove(),1200);
-    }
-}
-
-yesBtn.addEventListener('click',()=>{
-    responses.q5='Yes ❤️';
-    createParticles();
-    setTimeout(()=>{
-        q5Container.classList.add('hidden');
-        results.innerHTML='<h2>Thank you! Survey complete. 💕</h2><pre>'+JSON.stringify(responses,null,2)+'</pre>';
-        results.classList.remove('hidden');
-        console.log('Responses:',responses);
-    },1200);
-});
-</script>
-</body>
-</html>
+    // Stay in visible bounds
+    avoidX = Math.max(10, Math.min(
